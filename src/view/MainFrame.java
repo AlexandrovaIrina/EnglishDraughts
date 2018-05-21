@@ -18,45 +18,47 @@ public class MainFrame extends JFrame {
 
             }
         };
+        add(panel);
         final int cellLength = 64;
         final int cellXAlign = 49;
         final int cellYAlign = 50;
+        JLayeredPane lp = getLayeredPane();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 JLabel cell;
                 if (i % 2 == j % 2) cell = new JLabel(getIcon("WhiteCell"));
                 else {
                     cell = new JLabel((getIcon("BrownCell")));
+                    cell.addMouseListener(new CellMouseListener());
                 }
-                cell.setBounds(j * cellLength,i * cellLength, cellLength, cellLength);
-                cell.addMouseMotionListener(new CellMouseListener());
-                panel.add(cell);
+                cell.setSize(cellLength, cellLength);
+                cell.setLocation(j * cellLength + cellXAlign,i * cellLength + cellYAlign);
+                lp.add(cell, JLayeredPane.PALETTE_LAYER);
             }
         }
-        final int draughtXAlign = 56;
-        final int draughtYAlign = 58;
+        final int draughtXAlign = 50;
+        final int draughtYAlign = 52;
         for (int i = 1; i <= 3; i++) {
             for (int j = 0; j < 4; j++) {
                 JLabel blackDraught = new JLabel(getIcon("BlackDraught"));
-                blackDraught.setBounds((i % 2 + 2 * j) * cellLength + draughtXAlign,
-                        (i - 1) * cellLength + draughtYAlign, cellLength, cellLength);
-                blackDraught.addMouseMotionListener(new DraughtMouseListener());
-                panel.add(blackDraught);
+                blackDraught.setSize(cellLength, cellLength);
+                blackDraught.setLocation((i % 2 + 2 * j) * cellLength + draughtXAlign,
+                        (i - 1) * cellLength + draughtYAlign);
+                blackDraught.addMouseListener(new DraughtMouseListener());
+                lp.add(blackDraught, JLayeredPane.POPUP_LAYER);
             }
         }
         for (int i = 6; i <= 8; i++) {
             for (int j = 0; j < 4; j++) {
                 JLabel whiteDraught = new JLabel(getIcon("WhiteDraught"));
-                whiteDraught.setBounds((i % 2 + 2 * j) * cellLength + draughtXAlign,
-                        (i - 1) * cellLength + draughtYAlign,
-                        cellLength, cellLength);
-                whiteDraught.addMouseMotionListener(new DraughtMouseListener());
-                panel.add(whiteDraught);
+                whiteDraught.setSize(cellLength, cellLength);
+                whiteDraught.setLocation((i % 2 + 2 * j) * cellLength + draughtXAlign,
+                        (i - 1) * cellLength + draughtYAlign);
+                whiteDraught.addMouseListener(new DraughtMouseListener());
+                lp.add(whiteDraught, JLayeredPane.POPUP_LAYER);
             }
         }
-        panel.setBounds(5, 5,2 * cellXAlign - 5 + cellLength * 8,
-                2 * cellYAlign - 5 + cellLength * 8);
-        add(panel);
+
         setSize(630, 650);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);

@@ -4,12 +4,10 @@ import static java.lang.Character.valueOf;
 
 public class Cell {
     private final String location;
-    private final CellColor color;
     private final boolean free;
 
-    public Cell (String location, CellColor color, boolean free) {
+    public Cell (String location, boolean free) {
         this.location = location;
-        this.color = color;
         this.free = free;
     }
 
@@ -18,9 +16,6 @@ public class Cell {
     }
     public String getLocation() {
         return location;
-    }
-    public CellColor getColor() {
-        return color;
     }
     public int getX() {
         return valueOf(location.charAt(1)) - 1;
