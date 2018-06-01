@@ -1,36 +1,43 @@
 package model;
 
-import static java.lang.Character.valueOf;
-
 public class Cell {
-    private final String location;
+    private final int xLocation;
+    private final int yLocation;
     private final boolean free;
+    private final CellColor color;
 
-    public Cell (String location, boolean free) {
-        this.location = location;
+    public Cell (int xLocation, int yLocation, boolean free, CellColor color) {
+        this.xLocation = xLocation;
+        this.yLocation = yLocation;
         this.free = free;
+        this.color = color;
     }
 
     public boolean isFree() {
         return free;
     }
-    public String getLocation() {
-        return location;
-    }
+
+    public CellColor getColor() { return color; }
+
     public int getX() {
-        return valueOf(location.charAt(1)) - 1;
+        return xLocation;
     }
+
     public int getY() {
-        switch (location.charAt(0)) {
-            case 'A' : return 0;
-            case 'B' : return 1;
-            case 'C' : return 2;
-            case 'D' : return 3;
-            case 'E' : return 4;
-            case 'F' : return 5;
-            case 'G' : return 6;
-            case 'H' : return 7;
-        }
-        return 8;
+        return yLocation;
+    }
+    public Cell makeFree() {return new Cell(xLocation, yLocation, true, color);}
+    public Cell makeNotFree() {
+        return new Cell(xLocation, yLocation, false, color);
+    }
+    private final static int cellXAlign = 49;
+    private final static int cellYAlign = 50;
+    private final static int cellLength = 64;
+
+    public int transformX() {
+        return xLocation * cellLength + cellXAlign;
+    }
+    public int transformY() {
+        return yLocation * cellLength + cellYAlign;
     }
 }
