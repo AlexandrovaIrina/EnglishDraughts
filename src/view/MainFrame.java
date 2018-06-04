@@ -122,12 +122,11 @@ public class MainFrame extends JFrame {
                 g.drawImage(getImage("BrownCell"), killingDraughtY * cellLength + cellXAlign,
                         killingDraughtX * cellLength + cellYAlign, panel);
                 draughts[killingDraughtX][killingDraughtY] = null;
-                cells[killingDraughtX][killingDraughtY] =
-                        cells[killingDraughtX][killingDraughtY].makeFree();
+                cells[killingDraughtX][killingDraughtY].makeFree();
                 controller.setCell(killingDraughtX, killingDraughtY, cells[killingDraughtX][killingDraughtY]);
             }
-            cells[lastX][lastY] = cells[lastX][lastY].makeFree();
-            cells[newX][newY] = cells[newX][newY].makeNotFree();
+            cells[lastX][lastY].makeFree();
+            cells[newX][newY].makeNotFree();
             controller.setCell(lastX, lastY, cells[lastX][lastY]);
             controller.setCell(newX, newY, cells[newX][newY]);
             draughts[newCell.getX()][newCell.getY()] = draught;
@@ -142,24 +141,24 @@ public class MainFrame extends JFrame {
         int newY = lastCellY - 2;
         int killingDraughtX = (newX + lastCellX) / 2;
         int killingDraughtY = (newY + lastCellY) / 2;
-        if(killingDraughtX > 0 && killingDraughtY > 0){
-            if(canMove(draught, killingDraughtX, killingDraughtY, newX, newY)) return true;
-        }
+        if (killingDraughtX > 0 && killingDraughtY > 0 &&
+                canMove(draught, killingDraughtX, killingDraughtY, newX, newY))
+            return true;
         newY = lastCellY + 2;
         killingDraughtY = (newY + lastCellY) / 2;
-        if(killingDraughtX > 0 && killingDraughtY < 7){
-            if(canMove(draught, killingDraughtX, killingDraughtY, newX, newY)) return true;
-        }
+        if (killingDraughtX > 0 && killingDraughtY < 7 &&
+                canMove(draught, killingDraughtX, killingDraughtY, newX, newY))
+            return true;
         newX = lastCellX + 2;
         killingDraughtX = (newX + lastCellX) / 2;
-        if(killingDraughtX < 7 && killingDraughtY < 7){
-            if(canMove(draught, killingDraughtX, killingDraughtY, newX, newY)) return true;
-        }
+        if (killingDraughtX < 7 && killingDraughtY < 7 &&
+                canMove(draught, killingDraughtX, killingDraughtY, newX, newY))
+            return true;
         newY = lastCellY - 2;
         killingDraughtY = (newY + lastCellY) / 2;
-        if(killingDraughtX < 7 && killingDraughtY > 0){
-            if(canMove(draught, killingDraughtX, killingDraughtY, newX, newY)) return true;
-        }
+        if (killingDraughtX < 7 && killingDraughtY > 0 &&
+                canMove(draught, killingDraughtX, killingDraughtY, newX, newY))
+            return true;
         return false;
     }
     private boolean canMove (Draught draught, int killingDraughtX, int killingDraughtY, int newX, int newY){

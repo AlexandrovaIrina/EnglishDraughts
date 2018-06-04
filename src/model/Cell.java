@@ -3,7 +3,7 @@ package model;
 public class Cell {
     private final int xLocation;
     private final int yLocation;
-    private final boolean free;
+    private boolean free;
     private final CellColor color;
 
     public Cell (int xLocation, int yLocation, boolean free, CellColor color) {
@@ -26,9 +26,11 @@ public class Cell {
     public int getY() {
         return yLocation;
     }
-    public Cell makeFree() {return new Cell(xLocation, yLocation, true, color);}
-    public Cell makeNotFree() {
-        return new Cell(xLocation, yLocation, false, color);
+    public void makeFree() {
+        free = true;
+    }
+    public void makeNotFree() {
+        free = false;
     }
     private final static int cellXAlign = 49;
     private final static int cellYAlign = 50;

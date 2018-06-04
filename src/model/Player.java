@@ -25,4 +25,5 @@ public class Player {
     public DraughtColor getPlayer() {
         return draughtColor;
     }
+    public int getScore() {return score;}
 }
